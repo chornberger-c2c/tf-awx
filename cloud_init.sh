@@ -21,6 +21,7 @@ pip install docker-compose
 
 #selinux
 setenforce permissive
+sed -i s/SELINUX=enforcing/SELINUX=permissive/ /etc/selinux/config
 
 #start docker unit
 systemctl enable docker
@@ -36,4 +37,9 @@ git clone https://github.com/ansible/awx.git
 cd awx/installer
 ansible-playbook -i inventory install.yml
 
-
+#tower-cli
+pip install ansible-tower-cli
+tower-cli config host http://localhost:80
+tower-cli config username admin
+tower-cli config password password
+tower-cli config verify_ssl False
